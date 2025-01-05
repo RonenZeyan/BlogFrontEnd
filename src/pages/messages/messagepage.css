@@ -1,0 +1,100 @@
+
+.messages-container{
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - 130px);
+}
+
+/* display message in left side */
+.all-messages{
+display: flex;
+flex-direction: column;
+flex: 5;
+overflow: scroll;
+scrollbar-width: none;
+border-right: 1px solid var(--gray-color);
+}
+
+
+.single-message{
+   height: 80px;
+   width: 570px;
+   background-color: var(--white-color);
+   border-bottom: 1px solid var(--gray-color);
+   padding-right: 20px;
+}
+
+.img-date{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.user-details{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 8px;
+}
+
+.user-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.message-title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* message details */
+
+.message-details{
+    flex: 7;
+    height: 100%;
+}
+
+.title {
+    width: 100%;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: start;
+    margin-bottom: 15px;
+    /* border-bottom: 2px solid var(--primary-color);  */
+    color: black;
+    text-align: start;
+    
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 10px 5px;
+}
+
+.single-message-details {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 15px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+
+.single-message-details:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); 
+}
+
+@media screen and (max-width: 768px) {
+    .single-message-details {
+        height: auto; /* להתאים את הגובה לרוחב המסך */
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 20px; /* להתאים את הגודל למסכים קטנים */
+        padding-left: 5px;
+    }
+}

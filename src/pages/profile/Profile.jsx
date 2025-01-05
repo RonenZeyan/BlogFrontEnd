@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import UpdateProfileModal from "./UpdateProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProfile, getUserProfile, uploadProfilePhoto } from "../../redux/apiCalls/profileApiCall";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import PostItem from "../../components/posts/PostItem";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
 
@@ -35,11 +35,11 @@ export default function Profile() {
     }, [params.id])
 
 
-    useEffect(()=>{
-        if(isProfileDeleted){
+    useEffect(() => {
+        if (isProfileDeleted) {
             navigate("/")
         }
-    },[navigate,isProfileDeleted])
+    }, [navigate, isProfileDeleted])
 
 
     //handlers 
@@ -65,7 +65,7 @@ export default function Profile() {
             if (willDelete) {
                 dispatch(deleteProfile(user._id))
                 dispatch(logoutUser());
-                
+
             }
         });
     };
@@ -75,6 +75,10 @@ export default function Profile() {
     return (
         <section className="profile">
             <div className="profile-header">
+                <div className="profile-link">
+                    <i style={{fontSize:"25px"}} class="bi bi-envelope-plus"></i>
+                    <Link to={`/messages/create-message/${params.id}`} style={{ color: "white",paddingLeft:"10px" }}>Send Message to {profile?.username}</Link >
+                </div>
                 <div className="profile-image-wrapper">
                     <img
                         src={file ? URL.createObjectURL(file) : profile?.profilePhoto?.url}

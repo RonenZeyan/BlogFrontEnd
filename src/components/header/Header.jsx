@@ -4,16 +4,25 @@ import "./header.css"
 import HeaderLeft from "./HeaderLeft";
 import NavBar from "./NavBar";
 import HeaderRight from "./HeaderRight";
+import Notifications from "../webSocketComps/Notifcations";
+import { useSelector } from "react-redux";
+import Messages from "../messages/Messages";
 
 export default function Header() {
 
     const [toggle, setToggle] = useState(false);
 
+    const { user } = useSelector(state => state.auth)
+
     return (
         <header className="header">
             <HeaderLeft toggle={toggle} setToggle={setToggle} />
             <NavBar toggle={toggle} setToggle={setToggle} />
-            <HeaderRight/>
+            <div style={{display:"flex",gap:"15px"}}>
+                <HeaderRight />
+                {user && <Notifications />}
+                {user && <Messages />}
+            </div>
         </header >
     )
 }

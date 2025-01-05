@@ -5,10 +5,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--blue-color);
+    background-color: var(--white-color);
     position: relative;
     z-index: 99;
-    border-bottom: 2px solid var(--white-color);
+    border-bottom: 2px solid var(--pumpkin-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
 }
 
 /* Header Left */
@@ -20,7 +21,7 @@
 .header-logo {
     font-size: 30px;
     font-weight: bold;
-    color: var(--white-color);
+    color: var(--pumpkin-color);
     text-decoration: underline;
     border: 3px dotted white;
     border-radius: 50%;
@@ -29,7 +30,7 @@
 
 /* a is the link tag in HeaderLeft.jsx */
 .header-logo a {
-    color: white;
+    color:var(--pumpkin-color);
 }
 
 .header-menu {
@@ -38,7 +39,7 @@
 
 .header-menu i {
     font-size: 40px;
-    color: var(--white-color);
+    color: var(--pumpkin-color);
     cursor: pointer;
 }
 
@@ -53,7 +54,7 @@
     cursor: pointer;
     font-size: 21px;
     font-weight: 500;
-    color: var(--white-color);
+    color: var(--pumpkin-color);;
 }
 
 .nav-link:hover {
@@ -66,11 +67,13 @@
 }
 
 /* Header Right */
+
+
 .header-right-link {
     margin-left: 10px;
     font-size: 21px;
     font-weight: 500;
-    background-color: var(--white-color);
+    background-color: var(--pumpkin-color);;
     color: var(--blue-color);
     border-radius: 10px;
     padding: 5px 10px;
@@ -93,7 +96,7 @@
 .header-right-username {
     font-size: 21px;
     font-weight: 500;
-    color: var(--main-color);
+    color: var(--pumpkin-color);
     margin-right: 10px;
     text-transform: capitalize;
     cursor: pointer;
@@ -111,7 +114,7 @@
     right: 50%;
     top: 100%;
     background-color: var(--main-color);
-    border: 1px solid var(--white-color);
+    border: 1px solid var(--pumpkin-color);;
     border-radius: 5px;
     padding: 5px;
     width: 150px;
@@ -126,33 +129,6 @@
     cursor: pointer;
 }
 
-/* Notification */
-
-.notifcation {
-    position: relative;
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 50%;
-    padding: 3px;
-    cursor: pointer;
-}
-
-
-.notifcation-badge {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 8px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1;
-    text-align: center;
-
-
-}
 
 /* Media Queries */
 @media (max-width: 990px) {

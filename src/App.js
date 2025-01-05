@@ -20,6 +20,8 @@ import ForgotPassword from "./pages/forms/ForgotPassword";
 import ResetPassword from "./pages/forms/ResetPassword";
 import NotFound from "./pages/not-found/NotFound";
 import { useSelector } from "react-redux";
+import MessagesPage from "./pages/messages/messagesPage";
+import CreateMessage from "./pages/create-message/createMessage";
 
 
 function App() {
@@ -44,6 +46,11 @@ function App() {
           <Route path="create-post" element={user ? <CreatePost /> : <Navigate to={"/"} />} />
           <Route path="details/:id" element={<PostDetails />} />
           <Route path="categories/:category" element={<Category />} />
+        </Route>
+
+        <Route path="messages">
+          <Route index element={<MessagesPage />} />
+          <Route path="create-message/:reciverId" element={<CreateMessage />} />
         </Route>
 
         <Route path="admin-dashboard">

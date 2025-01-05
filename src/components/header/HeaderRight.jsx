@@ -1,19 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
+import socket from "../webSocketComps/socket";
 
 export default function HeaderRight({ toggle, setToggle }) {
 
     const dispatch = useDispatch()
     const { user } = useSelector(state => state.auth)
     const [dropdown, setDropdown] = useState(false);
-    const [dropDownNoti, setDropdownNoti] = useState(false);
 
     function logoutHandler() {
         dispatch(logoutUser());
         setDropdown(false);
     }
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+        // if (userInfo && !localStorage.getItem("socketConnected")) {
+        //     if (!socket.connected) {
+        //         socket.connect();
+        //     }
+
+        //     socket.emit("setUserId", userInfo._id);
+        //     localStorage.setItem("socketConnected", "true");
+        // }
+
+        // return () => {
+        //     if (socket.connected) {
+        //         socket.disconnect();
+        //         localStorage.removeItem("socketConnected");
+        //     }
+        // };
+    }, []);
 
     return (
         <div className="header-right">
@@ -44,22 +64,6 @@ export default function HeaderRight({ toggle, setToggle }) {
                                     <span>Logout</span>
                                 </div>
                             </div>)}
-                            <div onClick={()=> setDropdownNoti(prev=>!prev)} style={{ marginLeft: "15px" }} className="notifcation">
-                                <i style={{ fontSize: "25px" }} className="bi bi-bell"></i>
-                                <span className="notifcation-badge">5</span>
-                            </div>
-                            {dropDownNoti && (
-                                <div style={{width:"300px"}} className="header-right-dropdown">
-                                    <Link
-                                        to={`/profile/${user._id}`}
-                                        className="header-dropdown-item"
-                                        onClick={() => setDropdownNoti(false)}
-                                    >
-                                        <span>No Notification</span>
-                                    </Link>
-
-                                </div>)
-                            }
                         </div>
 
                     </>
