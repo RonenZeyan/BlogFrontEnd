@@ -25,6 +25,7 @@ export default function Profile() {
     //useStates Hooks
     const [file, setFile] = useState(null);
     const [updateProfile, setUpdateProfile] = useState(false);
+    const [expandPicture, setExpandPicture] = useState(false);
 
 
     //useEffects hooks
@@ -71,19 +72,30 @@ export default function Profile() {
     };
 
 
-
     return (
         <section className="profile">
             <div className="profile-header">
-                <div className="profile-link">
-                    <i style={{fontSize:"25px"}} class="bi bi-envelope-plus"></i>
-                    <Link to={`/messages/create-message/${params.id}`} style={{ color: "white",paddingLeft:"10px" }}>Send Message to {profile?.username}</Link >
-                </div>
+                {user?._id !== profile?._id && <div className="profile-link">
+                    <i style={{ fontSize: "25px" }} className="bi bi-envelope-plus"></i>
+                    <Link to={`/messages/create-message/${params.id}`} style={{ color: "white", paddingLeft: "10px" }}>Send Message to {profile?.username}</Link >
+                </div>}
                 <div className="profile-image-wrapper">
-                    <img
-                        src={file ? URL.createObjectURL(file) : profile?.profilePhoto?.url}
-                        alt=""
-                        className="profile-image" />
+                    <div className="profile-image-container">
+                        <img
+                            src={file ? URL.createObjectURL(file) : profile?.profilePhoto?.url}
+                            alt=""
+                            className="profile-image" />
+                        <button onClick={() => { setExpandPicture(true) }}><i className="bi bi-arrows-angle-expand"></i></button>
+                    </div>
+                    {expandPicture &&
+                        <div className="expanded-profile-image-container">
+                            <button onClick={() => { setExpandPicture(false); }}>X</button>
+                            <img
+                                src={file ? URL.createObjectURL(file) : profile?.profilePhoto?.url}
+                                alt=""
+                                className="expand-profile-image" />
+                        </div>
+                    }
                     {user?._id === params.id && (
                         <form onSubmit={formSubmitHandler}>
                             <abbr title="Choose Profile Photo">
@@ -135,7 +147,6 @@ export default function Profile() {
             )}
 
             {updateProfile && <UpdateProfileModal profile={profile} setUpdateProfile={setUpdateProfile} />}
-
         </section>
     )
 }

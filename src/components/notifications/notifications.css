@@ -3,12 +3,14 @@
 .notifcation {
     position: relative;
     display: inline-block;
-    border: 1px solid var(--pumpkin-color);
     border-radius: 50%;
     padding: 3px;
     cursor: pointer;
 }
 
+.notifcation:hover{
+    background-color: rgba(0,0,0,0.1);
+}
 
 .notifcation-badge {
     position: absolute;

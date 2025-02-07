@@ -4,9 +4,10 @@ import "./header.css"
 import HeaderLeft from "./HeaderLeft";
 import NavBar from "./NavBar";
 import HeaderRight from "./HeaderRight";
-import Notifications from "../webSocketComps/Notifcations";
+import Notifications from "../notifications/Notifcations";
 import { useSelector } from "react-redux";
 import Messages from "../messages/Messages";
+import DarkMode from "../darkmode/DarkMode";
 
 export default function Header() {
 
@@ -22,6 +23,7 @@ export default function Header() {
                 <HeaderRight />
                 {user && <Notifications />}
                 {user && <Messages />}
+                <DarkMode/>
             </div>
         </header >
     )

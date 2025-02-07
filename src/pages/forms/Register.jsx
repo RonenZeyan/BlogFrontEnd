@@ -32,7 +32,7 @@ const Register = () => {
       icon: "success"
     }).then(isOk => {
       if (isOk) {
-        
+
         navigate("/login");
       }
     })
@@ -46,40 +46,51 @@ const Register = () => {
           <label htmlFor="username" className="form-label">
             Username
           </label>
-          <input
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-            type="text"
-            id="username"
-            placeholder="Enter your username"
-            className="form-input"
-          />
+          <div className="input-with-icon">
+            <input
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              className="form-input"
+            />
+            <i className="bi bi-person-fill"></i>
+          </div>
+
         </div>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
             Email
           </label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            className="form-input"
-          />
+          <div className="input-with-icon">
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              className="form-input"
+            />
+            <i class="bi bi-person-vcard"></i>
+          </div>
+
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            className="form-input"
-          />
+          <div className="input-with-icon">
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              className="form-input"
+            />
+            <i className="bi bi-lock-fill"></i>
+          </div>
         </div>
         <button type="submit" className="form-btn">
           Register

@@ -12,6 +12,20 @@
   --white-color: #fff;
 }
 
+body.dark-mode {
+  --main-color: #3333339c;
+  --primary-color: #dfe6e9;
+  --secondary-color: #b2bec3;
+  --gray-color: #95a5a6;
+  --dark-color: #1e272e;
+  --blue-color: #2980b9;
+  --green-color: #16a085;
+  --green-sea-color: #1abc9c;
+  --pumpkin-color: #e67e22;
+  --red-color: #c0392b;
+  --white-color: #ecf0f1;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,6 +36,17 @@
 body {
   background-color: var(--main-color);
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar{
+  background-color:transparent;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--pumpkin-color);
+  border-radius: 15px;
+  
 }
 
 a {
@@ -49,16 +74,3 @@ textarea:focus {
   color: var(--red-color);
 }
 
-/* Scrollbar Classes For Google Chrome */
-html::-webkit-scrollbar {
-  width: 12px;
-}
-
-html::-webkit-scrollbar-track {
-  background-color: rgb(187, 179, 179);
-}
-
-html::-webkit-scrollbar-thumb {
-  background-color: var(--dark-color);
-  border-radius: 15px;
-}

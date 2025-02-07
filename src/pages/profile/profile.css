@@ -41,11 +41,66 @@
     text-align: center;
 }
 
+.profile-image-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.profile-image-container button{
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    border: none;
+    font-size: 25px;
+    font-weight: bolder;
+    position: absolute;
+    top: 0;
+    right: -30px;
+}
+
 .profile-image {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/* expanded picture */
+
+.expanded-profile-image-container{
+display: flex;
+justify-content: center;
+align-items: center;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+z-index: 999;
+}
+
+.expand-profile-image{
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.expanded-profile-image-container button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .upload-profile-photo-icon,

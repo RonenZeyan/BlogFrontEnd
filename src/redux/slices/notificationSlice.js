@@ -4,6 +4,7 @@ const notificationSlice = createSlice({
     name: "notification",
     initialState: {
         UnreadNotifications: [],
+        loading:false,
     },
     reducers: {
         fetchUnreaderNotifications(state, action) {
@@ -16,6 +17,12 @@ const notificationSlice = createSlice({
             state.UnreadNotifications = state.UnreadNotifications.filter(
                 (n) => n._id !== action.payload
             );
+        },
+        setLoading(state) {
+            state.loading = true
+        },
+        clearLoading(state) {
+            state.loading = false
         },
     },
 });

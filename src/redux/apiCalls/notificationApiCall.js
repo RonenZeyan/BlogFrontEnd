@@ -5,6 +5,7 @@ import { notificationActions } from "../slices/notificationSlice";
 export function getAllNotifications() {
     return async (dispatch, getState) => {
         try {
+            dispatch(notificationActions.setLoading());
             const res = await request.get("/api/notifications", {
                 headers: {
                     Authorization: "Bearer " + getState().auth.user.token,
@@ -12,8 +13,10 @@ export function getAllNotifications() {
             });
             // console.log(res);
             dispatch(notificationActions.fetchUnreaderNotifications(res.data));
+            dispatch(notificationActions.clearLoading());
         } catch (error) {
             toast.error(error.response.data.message);
+            dispatch(notificationActions.clearLoading());
             console.log(error);
         }
     };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./notifications.css";
 import { Link } from "react-router-dom";
-import socket from "./socket";
+import socket from "../webSocketComps/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotifications, setNotificationReaded } from "../../redux/apiCalls/notificationApiCall";
 import { notificationActions } from "../../redux/slices/notificationSlice";
@@ -22,10 +22,7 @@ export default function Notifications() {
     useEffect(() => {
         //listen to event of type new Notification
         socket.on("newNotification", (data) => {
-            // setNotifications(data.data)
-            // console.log(data)
             dispatch(notificationActions.setNewNotification(data));
-            // alert(data.message); // לדוגמה מציגים את ההודעה ב-alert
         });
 
         //stop the listener if the component closed
@@ -43,7 +40,7 @@ export default function Notifications() {
     return (
         <>
             <div onClick={() => setDropdownNoti((prev) => !prev)} className="notifcation">
-                <i style={{ fontSize: "25px",color:"black" }} className="bi bi-bell"></i>
+                <i style={{ fontSize: "25px", color: "black" }} className="bi bi-bell"></i>
 
                 {UnreadNotifications.length === 0 ?
                     null
@@ -55,7 +52,6 @@ export default function Notifications() {
             </div>
             {dropDownNoti && (
                 <div style={{ width: "300px", position: "absolute", background: "#fff", zIndex: 1000 }} className="header-right-dropdown">
-                    {/* {notifcations.map((item, index) => ( */}
                     {UnreadNotifications.length !== 0 ? UnreadNotifications.map((noti, index) =>
                     (
                         <Link
@@ -72,14 +68,15 @@ export default function Notifications() {
                             }}
                         >
                             {noti.type === "Comment" ? (
-                                <p><i className="bi bi-chat-text"></i>{`${noti.senderId.username} commented in your post`}</p>
+                                <p><i className="bi bi-chat-text"></i>{` ${noti.senderId.username} commented in your post`}</p>
                             ) : (
-                                <p><i className="bi bi-hand-thumbs-up-fill"></i>{`${noti.senderId.username} likes your post`}</p>
+                                <p>
+                                    <i className="bi bi-hand-thumbs-up-fill"></i>
+                                    {noti?.senderId?.username ? ` ${noti?.senderId?.username} likes your post`:"loading..."}
+                                </p>
                             )}
-                            {/* <p>{item.text}</p> */}
                         </Link>
                     )) : <p>no notifications</p>}
-                    {/* ))} */}
                 </div>
             )}
         </>

@@ -3,10 +3,7 @@ import "./create-message.css"
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { createPost } from "../../redux/apiCalls/postApiCall";
-import { getCategories } from "../../redux/apiCalls/categoryApiCall";
 import { createMessage } from "../../redux/apiCalls/messageApiCall";
-import { getUserProfile } from "../../redux/apiCalls/profileApiCall";
 export default function CreateMessage() {
 
     // //redux

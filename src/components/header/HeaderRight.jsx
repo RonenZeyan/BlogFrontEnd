@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
 import socket from "../webSocketComps/socket";
 
-export default function HeaderRight({ toggle, setToggle }) {
+export default function HeaderRight() {
 
     const dispatch = useDispatch()
-    const { user } = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.auth);
     const [dropdown, setDropdown] = useState(false);
 
     function logoutHandler() {
@@ -15,24 +15,26 @@ export default function HeaderRight({ toggle, setToggle }) {
         setDropdown(false);
     }
 
+
+
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-        // if (userInfo && !localStorage.getItem("socketConnected")) {
-        //     if (!socket.connected) {
-        //         socket.connect();
-        //     }
+        if (userInfo && !localStorage.getItem("socketConnected")) {
+            if (!socket.connected) {
+                socket.connect();
+            }
 
-        //     socket.emit("setUserId", userInfo._id);
-        //     localStorage.setItem("socketConnected", "true");
-        // }
+            socket.emit("setUserId", userInfo._id);
+            localStorage.setItem("socketConnected", "true");
+        }
 
-        // return () => {
-        //     if (socket.connected) {
-        //         socket.disconnect();
-        //         localStorage.removeItem("socketConnected");
-        //     }
-        // };
+        return () => {
+            if (socket.connected) {
+                socket.disconnect();
+                localStorage.removeItem("socketConnected");
+            }
+        };
     }, []);
 
     return (

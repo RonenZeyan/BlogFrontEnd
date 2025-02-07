@@ -32,12 +32,27 @@
     color: var(--secondary-color);
 }
 
-.form-input {
+.input-with-icon{
+    position: relative;
+    width: 100%;
+    align-items: center;
+
+}
+
+.input-with-icon .form-input {
     width: 100%;
     border-radius: 10px;
     border: 1px solid var(--gray-color);
     font-size: 21px;
     padding: 10px;
+}
+
+.input-with-icon i{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 1.75rem;
+    color: var(--gray-color);
 }
 
 .form-btn {

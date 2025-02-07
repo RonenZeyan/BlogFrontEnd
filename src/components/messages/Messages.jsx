@@ -1,85 +1,70 @@
 import { useEffect, useState } from "react";
 import "./messages.css";
 import { Link } from "react-router-dom";
+import socket from "../webSocketComps/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { messageActions } from "../../redux/slices/messageSlice";
+import { fetchUnreadedMessages, setMessageReaded } from "../../redux/apiCalls/messageApiCall";
 
 
-
-// const notifications = [
-//     {
-//         username: "Ronen",
-//         type: "Like",
-//         text: "Toggle Like for your post",
-//     },
-//     {
-//         username: "Rami",
-//         type: "Comment",
-//         text: "commented on your post",
-//     },
-//     {
-//         username: "Lior",
-//         type: "Like",
-//         text: "liked your post",
-//     },
-// ];
 
 
 export default function Messages() {
     //useStates Hooks
     const [dropDownNoti, setDropdownNoti] = useState(false);
-    const UnreadNotifications = []
 
-    // //redux
-    // const dispatch = useDispatch();
-    // const { UnreadNotifications } = useSelector(state => state.notification);
+    //redux 
+    const dispatch = useDispatch();
+    const { unreadedMessages } = useSelector(state => state.message);
 
-    // useEffect(() => {
-    //     dispatch(getAllNotifications());
-    // }, [dispatch])
 
-    // useEffect(() => {
-    //     //listen to event of type new Notification
-    //     socket.on("newNotification", (data) => {
-    //         // setNotifications(data.data)
-    //         console.log(data)
-    //         dispatch(notificationActions.setNewNotification(data));
-    //         // alert(data.message); // לדוגמה מציגים את ההודעה ב-alert
-    //     });
+    useEffect(() => {
+        //listen to event of type new Notification
+        socket.on("newMessage", (data) => {
+            console.log(data)
+            dispatch(messageActions.setNewMessage(data))
+        });
 
-    //     //stop the listener if the component closed
-    //     return () => {
-    //         socket.off("newNotification");
-    //     };
-    // }, []);
+        //stop the listener if the component closed
+        return () => {
+            socket.off("newMessage");
+        };
+    }, []);
 
-    // function handleSelectNotification(notificationId) {
-    //     setDropdownNoti(false);
-    //     dispatch(setNotificationReaded(notificationId));
+    useEffect(() => {
+        dispatch(fetchUnreadedMessages());
+    }, [dispatch])
 
-    // }
+
+    function handleSelectMessage(msg_id) {
+        setDropdownNoti(false);
+        dispatch(setMessageReaded(msg_id));
+        dispatch(messageActions.setReadedMessage(msg_id));
+        dispatch(messageActions.setMessage(msg_id));
+    }
 
     return (
         <>
             <div onClick={() => setDropdownNoti((prev) => !prev)} className="notifcation">
-                <i style={{ fontSize: "25px", color: "black" }} class="bi bi-envelope"></i>
+                <i style={{ fontSize: "25px", color: "black" }} className="bi bi-envelope"></i>
 
-                {UnreadNotifications.length === 0 ?
+                {unreadedMessages.length === 0 ?
                     null
                     : (
                         <>
-                            <span className="notifcation-badge">{UnreadNotifications.length}</span>
+                            <span className="notifcation-badge">{unreadedMessages.length}</span>
                         </>
                     )}
             </div>
             {dropDownNoti && (
                 <div style={{ width: "300px", position: "absolute", background: "#fff", zIndex: 1000 }} className="header-right-dropdown">
-                    {/* {notifcations.map((item, index) => ( */}
-                    {UnreadNotifications.length !== 0 ? UnreadNotifications.map((noti, index) =>
+                    {unreadedMessages.length !== 0 && unreadedMessages.map((msg, index) =>
                     (
                         <Link
                             key={index}
-                            to={`/posts/details/${noti.postId}`}
+                            to={`/messages`}
                             className="header-dropdown-item"
-                            onClick={() => handleSelectNotification(noti._id)}
+                            onClick={() => handleSelectMessage(msg._id)}
                             style={{
                                 display: "block",
                                 padding: "10px",
@@ -88,19 +73,20 @@ export default function Messages() {
                                 color: "#000",
                             }}
                         >
-                            {noti.type === "Comment" ? (
-                                <p><i className="bi bi-chat-text"></i>{`${noti.senderId.username} commented in your post`}</p>
-                            ) : (
-                                <p><i className="bi bi-hand-thumbs-up-fill"></i>{`${noti.senderId.username} likes your post`}</p>
-                            )}
-                            {/* <p>{item.text}</p> */}
+
+                            <p><i style={{ color: "black" }} className="bi bi-envelope"></i>{` New Message From ${msg.senderId.username}`}</p>
                         </Link>
-                    )) : <Link
-                        onClick={()=>setDropdownNoti(false)}
-                        to="/messages">Show All Messages</Link>}
-                    {/* ))} */}
-                </div>
-            )}
+                    ))
+                    }
+                        <Link
+                            onClick={() => setDropdownNoti(false)}
+                            to="/messages"
+                        >
+                            Show All Messages
+                        </Link>
+        </div >
+            )
+}
         </>
     );
 }
